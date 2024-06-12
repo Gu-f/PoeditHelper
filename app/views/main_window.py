@@ -1,11 +1,15 @@
-from PySide6.QtCore import QSize, QUrl
+import time
+
+from PySide6.QtCore import QSize, QUrl, QThread
 from PySide6.QtGui import QIcon, QDesktopServices
 from PySide6.QtWidgets import QApplication
 from qfluentwidgets import FluentWindow, SplashScreen, NavigationItemPosition
 from qfluentwidgets import FluentIcon
 
+from app.tanslate_core.tanslater import AITranslater
 from app.views.help_window import HelpInterface
 from app.views.home_window import HomeInterface
+from app.worker_thread.poedit_worker import PoeditWorkerThread
 
 
 class MainWindow(FluentWindow):
@@ -20,6 +24,31 @@ class MainWindow(FluentWindow):
         # 向导航栏添加项
         self.initNavigation()
         self.splashScreen.finish()
+
+        # 初始化模型
+        self.translator = self.init_translte_model()
+
+        # 初始化线程
+        self.init_thread()
+
+    def init_translte_model(self):
+        return AITranslater()
+
+    def init_thread(self):
+        self.thread = QThread()
+        self.poedit_thread = PoeditWorkerThread()
+        self.poedit_thread.moveToThread(self.thread)
+
+        # 处理线程返回信号
+        self.poedit_thread.poedit_listen.connect(self.poedit_action)
+
+        # 启动线程
+        self.thread.started.connect(self.poedit_thread.run)
+        self.thread.start()
+
+    def poedit_action(self, translate_text):
+        translate_result = self.translator.ai_translate(translate_text)
+        self.homeInterface.translate_list_widget.list_add_item(translate_result)
 
     def initWindow(self):
         self.resize(345, 500)
@@ -48,7 +77,8 @@ class MainWindow(FluentWindow):
         # 添加导航选项卡
         # t = Translator()
         self.addSubInterface(self.homeInterface, FluentIcon.HOME, self.tr('翻译'))
-        self.addSubInterface(self.helpInterface, FluentIcon.HELP, self.tr('帮助'), position=NavigationItemPosition.BOTTOM)
+        self.addSubInterface(self.helpInterface, FluentIcon.HELP, self.tr('帮助'),
+                             position=NavigationItemPosition.BOTTOM)
 
         # 源代码页跳转
         self.navigationInterface.addItem(

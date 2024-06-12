@@ -14,16 +14,17 @@ class TranslateInfoListWidget(QWidget):
 
         self.listWidget.setAlternatingRowColors(True)
 
-        stands = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
-        for stand in stands:
-            item = QListWidgetItem(stand)
-            self.listWidget.addItem(item)
         self.listWidget.itemClicked.connect(self.item_mouse_click)
 
         self.setStyleSheet("Demo{background: rgb(249, 249, 249)} ")
         self.hBoxLayout.setContentsMargins(0, 0, 0, 0)
         self.hBoxLayout.addWidget(self.listWidget)
         # self.resize(300, 400)
+
+    def list_add_item(self, item):
+        self.listWidget.clear()
+        item = QListWidgetItem(item)
+        self.listWidget.addItem(item)
 
     def item_mouse_click(self, item):
         print(item.text())
@@ -100,8 +101,8 @@ class HomeInterface(ScrollArea):
         self.setWidgetResizable(True)
 
     def loadContent(self):
-        translate_list_widget = TranslateInfoListWidget()
-        translate_source_target_widget = TranslateSourceTargetSelectWidget()
+        self.translate_list_widget = TranslateInfoListWidget()
+        self.translate_source_target_widget = TranslateSourceTargetSelectWidget()
 
-        self.vBoxLayout.addWidget(translate_source_target_widget)
-        self.vBoxLayout.addWidget(translate_list_widget)
+        self.vBoxLayout.addWidget(self.translate_source_target_widget)
+        self.vBoxLayout.addWidget(self.translate_list_widget)
