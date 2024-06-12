@@ -1,0 +1,3 @@
+pyside6==6.7.1
+PySide6-Fluent-Widgets[full]==1.5.7
+argostranslate==1.9.6
