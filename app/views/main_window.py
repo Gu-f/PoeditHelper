@@ -10,6 +10,7 @@ from app.translate_core.tanslater import AITranslater
 from app.views.help_window import HelpInterface
 from app.views.home_window import HomeInterface
 from app.worker_thread.poedit_worker import PoeditWorkerThread
+from app.config import HelperConfig
 
 
 class MainWindow(FluentWindow):
@@ -70,7 +71,7 @@ class MainWindow(FluentWindow):
         self.setMinimumWidth(345)
         self.setMinimumHeight(500)
         self.setWindowIcon(QIcon('app/res/logo.png'))
-        self.setWindowTitle('PoeditHelper')
+        self.setWindowTitle(f'PoeditHelper V{HelperConfig.VERSION}')
 
         self.setMicaEffectEnabled(True)
 
