@@ -23,7 +23,7 @@ class HelpInterface(ScrollArea):
         self.setWidgetResizable(True)
 
     def loadContent(self):
-        with open('README.MD', 'r', encoding='utf-8') as file:
+        with open('LICENSE', 'r', encoding='utf-8') as file:
             readme_md = file.read()
         textEdit = TextEdit(self)
         textEdit.setReadOnly(True)

@@ -15,7 +15,14 @@ https://raw.githubusercontent.com/argosopentech/argospm-index/main/index.json
 [翻译模型下载-dev]  
 https://raw.githubusercontent.com/argosopentech/argospm-index-dev/main/index.json  
 
+# 经测试  
+- Python3.9  
+- Poedit 3.4.4  
+
 # 使用
+`pip install -r requirements.txt`  
+`python main.py`  
+然后  
 1、 打开Poedit。  
 2、 打开PoeditHelper。  
 3、 载入po文件。  
