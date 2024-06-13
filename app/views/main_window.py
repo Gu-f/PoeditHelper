@@ -1,12 +1,10 @@
-import time
-
 from PySide6.QtCore import QSize, QUrl, QThread
 from PySide6.QtGui import QIcon, QDesktopServices
 from PySide6.QtWidgets import QApplication
 from qfluentwidgets import FluentWindow, SplashScreen, NavigationItemPosition
 from qfluentwidgets import FluentIcon
 
-from app.tanslate_core.tanslater import AITranslater
+from app.translate_core.tanslater import AITranslater
 from app.views.help_window import HelpInterface
 from app.views.home_window import HomeInterface
 from app.worker_thread.poedit_worker import PoeditWorkerThread
@@ -16,6 +14,7 @@ class MainWindow(FluentWindow):
 
     def __init__(self):
         super().__init__()
+        self.temp_model_category = ""
         self.initWindow()
         # 创建导航子页
         self.homeInterface = HomeInterface(self)
@@ -25,14 +24,25 @@ class MainWindow(FluentWindow):
         self.initNavigation()
         self.splashScreen.finish()
 
-        # 初始化模型
-        self.translator = self.init_translte_model()
+        # 模型解包
+        self.translator = self.unpack_translte_model()
 
         # 初始化线程
         self.init_thread()
 
-    def init_translte_model(self):
+        # 初始化模型数据到选择列表
+        self.homeInterface.translate_source_target_widget.s_combo_box.addItems(self.translator.translate_models.source_items)
+        self.homeInterface.translate_source_target_widget.t_combo_box.addItems(self.translator.translate_models.target_items)
+
+    def unpack_translte_model(self):
         return AITranslater()
+
+    def set_translate_model(self, category):
+        if category != self.temp_model_category:
+            self.homeInterface.translate_list_widget.list_add_item("切换模型中...")
+            self.translator.translator = None
+            self.translator.init_translater(category=category, device='cpu')
+            self.temp_model_category = category
 
     def init_thread(self):
         self.thread = QThread()
@@ -47,6 +57,10 @@ class MainWindow(FluentWindow):
         self.thread.start()
 
     def poedit_action(self, translate_text):
+        s = self.homeInterface.translate_source_target_widget.s_combo_box.text()
+        t = self.homeInterface.translate_source_target_widget.t_combo_box.text()
+        category = f"{s}_{t}"
+        self.set_translate_model(category)
         translate_result = self.translator.ai_translate(translate_text)
         self.homeInterface.translate_list_widget.list_add_item(translate_result)
 

@@ -1,13 +1,15 @@
-from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QListWidgetItem
-from PySide6.QtCore import Qt, Signal, QRectF, QSize, QEasingCurve
-from qfluentwidgets import ScrollArea, ListWidget, ComboBox, FlowLayout, PushButton, PrimaryPushButton, FluentIcon, IconWidget, PrimaryToolButton, TransparentToolButton
+from PySide6.QtCore import Qt, QEasingCurve
+from qfluentwidgets import ScrollArea, ListWidget, ComboBox, FlowLayout, FluentIcon, TransparentToolButton
+
+from app.worker_thread.poedit_worker import PoeditWorkerThread
 
 
 class TranslateInfoListWidget(QWidget):
     # 翻译列表
-    def __init__(self):
+    def __init__(self, parent=None):
         super().__init__()
+        self.parent = parent
 
         self.hBoxLayout = QHBoxLayout(self)
         self.listWidget = ListWidget(self)
@@ -27,23 +29,21 @@ class TranslateInfoListWidget(QWidget):
         self.listWidget.addItem(item)
 
     def item_mouse_click(self, item):
-        print(item.text())
+        poedit_thread: PoeditWorkerThread = self.parent.parent.poedit_thread
+        target_text_box = poedit_thread.get_target_text_box()
+        target_text_box.send_chars(str(item.text()))
 
 
 class TranslateSourceTargetSelectWidget(QWidget):
 
     def source_combo_box(self):
         comboBox = ComboBox()
-        comboBox.addItems(self.combo_box_items)
-        comboBox.setCurrentIndex(1)
         comboBox.setFixedWidth(100)
         comboBox.isFlat()
         return comboBox
 
     def target_combo_box(self):
         comboBox = ComboBox()
-        comboBox.addItems(self.combo_box_items)
-        comboBox.setCurrentIndex(0)
         comboBox.setFixedWidth(100)
         return comboBox
 
@@ -60,8 +60,6 @@ class TranslateSourceTargetSelectWidget(QWidget):
     def __init__(self):
         super().__init__()
         layout = FlowLayout(self, needAni=True)
-
-        self.combo_box_items = ['zh', 'en']
 
         # 自定义动画
         layout.setAnimation(10, QEasingCurve.OutQuad)
@@ -86,6 +84,7 @@ class HomeInterface(ScrollArea):
 
     def __init__(self, parent=None):
         super().__init__(parent=parent)
+        self.parent = parent
         self.view = QWidget(self)
         self.vBoxLayout = QVBoxLayout(self.view)
 
@@ -101,7 +100,7 @@ class HomeInterface(ScrollArea):
         self.setWidgetResizable(True)
 
     def loadContent(self):
-        self.translate_list_widget = TranslateInfoListWidget()
+        self.translate_list_widget = TranslateInfoListWidget(self)
         self.translate_source_target_widget = TranslateSourceTargetSelectWidget()
 
         self.vBoxLayout.addWidget(self.translate_source_target_widget)
