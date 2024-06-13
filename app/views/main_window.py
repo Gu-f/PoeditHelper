@@ -1,3 +1,5 @@
+import time
+
 from PySide6.QtCore import QSize, QUrl, QThread
 from PySide6.QtGui import QIcon, QDesktopServices
 from PySide6.QtWidgets import QApplication
@@ -39,7 +41,6 @@ class MainWindow(FluentWindow):
 
     def set_translate_model(self, category):
         if category != self.temp_model_category:
-            self.homeInterface.translate_list_widget.list_add_item("切换模型中...")
             self.translator.translator = None
             self.translator.init_translater(category=category, device='cpu')
             self.temp_model_category = category

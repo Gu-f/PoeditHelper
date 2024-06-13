@@ -48,14 +48,12 @@ class TranslateSourceTargetSelectWidget(QWidget):
         return comboBox
 
     def reverse_button(self):
-        button = TransparentToolButton(FluentIcon.SYNC)
+        button = TransparentToolButton(FluentIcon.RIGHT_ARROW)
         button.clicked.connect(self.reverse_source_target)
         return button
 
     def reverse_source_target(self):
-        s_temp_index = self.s_combo_box.currentIndex()
-        self.s_combo_box.setCurrentIndex(self.t_combo_box.currentIndex())
-        self.t_combo_box.setCurrentIndex(s_temp_index)
+        pass
 
     def __init__(self):
         super().__init__()
