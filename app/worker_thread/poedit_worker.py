@@ -37,12 +37,12 @@ class PoeditWorkerThread(QObject):
 
     def get_source_text_box(self):
         if not self.source_text_box:
-            self.source_text_box = self.get_top_window().child_window(control_id=-31886)
+            self.source_text_box = self.get_top_window().child_window(class_name="RICHEDIT50W", found_index=0)  # first default control_id=-31886
         return self.source_text_box
 
     def get_target_text_box(self):
         if not self.target_text_box:
-            self.target_text_box = self.get_top_window().child_window(control_id=-31875)
+            self.target_text_box = self.get_top_window().child_window(class_name="RICHEDIT50W", found_index=1)  # first default control_id=-31875
         return self.target_text_box
 
     def get_source_text(self):
