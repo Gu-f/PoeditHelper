@@ -2,6 +2,7 @@ from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QListWidgetItem
 from PySide6.QtCore import Qt, QEasingCurve
 from qfluentwidgets import ScrollArea, ListWidget, ComboBox, FlowLayout, FluentIcon, TransparentToolButton
 
+from app.utils import serializer_chars
 from app.worker_thread.poedit_worker import PoeditWorkerThread
 
 
@@ -31,7 +32,7 @@ class TranslateInfoListWidget(QWidget):
     def item_mouse_click(self, item):
         poedit_thread: PoeditWorkerThread = self.parent.parent.poedit_thread
         target_text_box = poedit_thread.get_target_text_box()
-        target_text_box.send_chars(str(item.text()))
+        target_text_box.send_chars(serializer_chars(str(item.text())))
 
 
 class TranslateSourceTargetSelectWidget(QWidget):
