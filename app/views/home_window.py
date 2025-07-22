@@ -19,7 +19,6 @@ class TranslateInfoListWidget(QWidget):
 
         self.listWidget.itemClicked.connect(self.item_mouse_click)
 
-        self.setStyleSheet("Demo{background: rgb(249, 249, 249)} ")
         self.hBoxLayout.setContentsMargins(0, 0, 0, 0)
         self.hBoxLayout.addWidget(self.listWidget)
         # self.resize(300, 400)
@@ -75,7 +74,6 @@ class TranslateSourceTargetSelectWidget(QWidget):
         layout.addWidget(self.t_combo_box)
 
         self.resize(250, 300)
-        self.setStyleSheet('Demo{background: white} QPushButton{padding: 5px 10px; font:15px "Microsoft YaHei"}')
 
 
 class HomeInterface(ScrollArea):

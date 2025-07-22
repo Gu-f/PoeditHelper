@@ -1,10 +1,10 @@
 import time
-
 from PySide6.QtCore import QSize, QUrl, QThread
 from PySide6.QtGui import QIcon, QDesktopServices
 from PySide6.QtWidgets import QApplication
 from qfluentwidgets import FluentWindow, SplashScreen, NavigationItemPosition
 from qfluentwidgets import FluentIcon
+from qfluentwidgets import Theme, setTheme
 
 from app.translate_core.tanslater import AITranslater
 from app.views.help_window import HelpInterface
@@ -67,6 +67,7 @@ class MainWindow(FluentWindow):
         self.homeInterface.translate_list_widget.list_add_item(translate_result)
 
     def initWindow(self):
+        setTheme(Theme.AUTO)
         self.resize(345, 500)
         self.setMinimumWidth(345)
         self.setMinimumHeight(500)
@@ -88,6 +89,10 @@ class MainWindow(FluentWindow):
 
     def open_source(self):
         QDesktopServices.openUrl(QUrl("https://github.com/Gu-f/PoeditHelper"))
+
+    def toggle_theme(self):
+        # todo
+        pass
 
     def initNavigation(self):
         # 添加导航选项卡
