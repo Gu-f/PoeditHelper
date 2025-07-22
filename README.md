@@ -1,25 +1,36 @@
 <img src="app/res/logo.png" width=100 height=100 alt="LOGO"/>
 
 # PoeditHelper
+
 [README_EN](README_EN.md)  
-基于机器学习翻译库的Poedit翻译助手.   
+基于机器学习翻译库的Poedit翻译助手.
 
 ----
+
 # 演示
+
 ![Demo](app/res/PoeditHelper.gif)
 
-# 模型下载  
+### 暗色模式
+
+![Dark](app/res/dark.png)
+
+# 模型下载
+
 其他语言的翻译模型可从这里下载  
 [翻译模型下载]  
 https://raw.githubusercontent.com/argosopentech/argospm-index/main/index.json  
 [翻译模型下载-dev]  
-https://raw.githubusercontent.com/argosopentech/argospm-index-dev/main/index.json  
+https://raw.githubusercontent.com/argosopentech/argospm-index-dev/main/index.json
 
-# 经测试  
-- Python3.9  
-- Poedit 3.4.4  
+# 经测试
+
+- Windows11
+- Python3.9
+- Poedit 3.4.4
 
 # 使用
+
 `pip install -r requirements.txt`  
 `python main.py`  
 然后  
