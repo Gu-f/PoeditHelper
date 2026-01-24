@@ -5,3 +5,4 @@ __pycache__/
 demo/
 venv3
 models/packages
+.venv

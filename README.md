@@ -5,15 +5,24 @@
 [README_EN](README_EN.md)  
 基于机器学习翻译库的Poedit翻译助手.
 
+- 机器学习模型翻译
+- LLM 大模型智能翻译
+- 明/暗模式
+
+## LLM 翻译
+- 目前支持的 LLM 供应商
+  - Google Ai Studio
+  
+- 使用大模型翻译前请先配置相关Token，部分地区需要配置代理才能访问。
+
 ----
 
 # 演示
 
+## V2
+![DemoV2](app/res/PoeditHelperV2.gif)
+## V1
 ![Demo](app/res/PoeditHelper.gif)
-
-### 暗色模式
-
-![Dark](app/res/dark.png)
 
 # 模型下载
 
@@ -26,7 +35,7 @@ https://raw.githubusercontent.com/argosopentech/argospm-index-dev/main/index.jso
 # 经测试
 
 - Windows11
-- Python3.9
+- Python3.11
 - Poedit 3.4.4
 
 # 使用
