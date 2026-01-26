@@ -1,0 +1,22 @@
+[project]
+name = "poedithelper"
+version = "0.1.0"
+description = "Poedit translation helper based on machine learning translation library."
+readme = "README.md"
+requires-python = "~=3.11.0"
+dependencies = [
+    "argostranslate>=1.10.0",
+    "pip>=25.3",
+    "pyside6>=6.10.1",
+    "pyside6-fluent-widgets[full]>=1.11.0",
+    "pywinauto>=0.6.9",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[[tool.uv.index]]
+name = "nju"
+url = "https://mirror.nju.edu.cn/pypi/web/simple"
+default = true

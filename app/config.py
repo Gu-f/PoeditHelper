@@ -1,2 +1,2 @@
 class HelperConfig(object):
-    VERSION = "1.2"
+    VERSION = "2.0"

@@ -4,7 +4,7 @@ from qfluentwidgets import ScrollArea, TextEdit
 
 
 class HelpInterface(ScrollArea):
-    """ Help interface """
+    """Help interface"""
 
     def __init__(self, parent=None):
         super().__init__(parent=parent)
@@ -15,15 +15,16 @@ class HelpInterface(ScrollArea):
         self.loadContent()
 
     def __initWidget(self):
-        self.view.setObjectName('view')
-        self.setObjectName('helpInterface')
+        self.view.setObjectName("view")
+        self.setObjectName("helpInterface")
 
-        self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         self.setWidget(self.view)
         self.setWidgetResizable(True)
+        self.enableTransparentBackground()
 
     def loadContent(self):
-        with open('LICENSE', 'r', encoding='utf-8') as file:
+        with open("LICENSE", "r", encoding="utf-8") as file:
             readme_md = file.read()
         textEdit = TextEdit(self)
         textEdit.setReadOnly(True)
